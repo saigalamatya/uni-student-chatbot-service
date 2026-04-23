@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University AI Chatbot - Support Services</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header"> 
+            <div class="logo-container">
+                <i class="fas fa-university logo-icon"></i>
+                <h1 class="logo">University<span>AI</span>Bot</h1>
+            </div>
+            <nav class="nav">
+                <a href="#home" class="nav-link active"><i class="fas fa-home"></i> Home</a>
+                <a href="#services" class="nav-link"><i class="fas fa-concierge-bell"></i> Services</a>
+                <a href="#faq" class="nav-link"><i class="fas fa-question-circle"></i> FAQ</a>
+                <a href="#contact" class="nav-link"><i class="fas fa-envelope"></i> Contact</a>
+                <!-- Login button removed -->
+                <button class="login-btn" id="logoutBtn" style="display: none;"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </nav>
+            <div class="mobile-menu">
+                <i class="fas fa-bars" id="mobileMenuBtn"></i>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Hero Section -->
+            <section class="hero" id="home">
+                <div class="hero-content">
+                    <h1 class="hero-title">AI-Powered University Support</h1>
+                    <p class="hero-subtitle">Get instant answers to all your university-related questions</p>
+                    <p class="hero-description">Our intelligent chatbot is available 24/7 to help with admissions, courses, housing, financial aid, and more.</p>
+                    <div class="hero-buttons">
+                        <button class="btn-primary" id="startChatBtn">
+                            <i class="fas fa-comments"></i> Start Chat
+                        </button>
+                        <button class="btn-secondary" id="exploreServicesBtn">
+                            <i class="fas fa-search"></i> Explore Services
+                        </button>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <div class="ai-orb"></div>
+                    <i class="fas fa-robot hero-bot-icon"></i>
+                </div>
+            </section>
+
+            <!-- Chatbot Section -->
+            <section class="chatbot-section" id="chatSection">
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <div class="chat-title">
+                            <i class="fas fa-robot"></i>
+                            <h3>University Assistant</h3>
+                            <span class="status-indicator online"></span>
+                            <span class="status-text">Online</span>
+                        </div>
+                        <div class="chat-actions">
+                            <button class="action-btn" id="clearChat" title="Clear Chat">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                            <button class="action-btn" id="minimizeChat" title="Minimize">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-messages" id="chatMessages">
+                        <!-- Welcome message -->
+                        <div class="message bot-message">
+                            <div class="message-avatar">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="message-content">
+                                <div class="message-text">
+                                    Hello! I'm your University AI Assistant. I can help you with:
+                                </div>
+                                <div class="quick-options">
+                                    <button class="quick-option" data-question="What are the admission requirements?">📝 Admissions</button>
+                                    <button class="quick-option" data-question="What is the tuition fee?">💰 Tuition & Fees</button>
+                                    <button class="quick-option" data-question="How do I register for courses?">📚 Courses</button>
+                                    <button class="quick-option" data-question="What are library hours?">🏛️ Library</button>
+                                    <button class="quick-option" data-question="What housing options are available?">🏠 Housing</button>
+                                    <button class="quick-option" data-question="How do I apply for financial aid?">🎓 Financial Aid</button>
+                                </div>
+                                <div class="message-text">
+                                    What can I help you with today?
+                                </div>
+                                <div class="message-time">Just now</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-input-area">
+                        <div class="input-container">
+                            <input type="text" 
+                                   id="userInput" 
+                                   placeholder="Ask about admissions, courses, housing, financial aid, or any university service..."
+                                   autocomplete="off">
+                            <button id="sendButton" class="send-btn">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                        <div class="input-actions">
+                            <button class="mic-btn" id="voiceBtn" title="Voice Input">
+                                <i class="fas fa-microphone"></i>
+                            </button>
+                            <!-- Attach button removed -->
+                        </div>
+                    </div>
+                    
+                    <div class="chat-footer">
+                        <div class="typing-indicator" id="typingIndicator">
+                            <span></span><span></span><span></span>
+                        </div>
+                        <div class="suggestions">
+                            <p>Try asking:</p>
+                            <div class="suggestion-chips">
+                                <button class="suggestion-chip" data-question="What is the application deadline?">Application deadline</button>
+                                <button class="suggestion-chip" data-question="How do I register for courses?">Course registration</button>
+                                <button class="suggestion-chip" data-question="What are the library hours?">Library hours</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Services Section -->
+            <section class="services-section" id="services">
+                <h2 class="section-title">University Services</h2>
+                <p class="section-subtitle">Comprehensive support for all your academic needs</p>
+                
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h3 class="service-title">Admissions</h3>
+                        <p class="service-description">Information about application process, requirements, deadlines, and eligibility criteria.</p>
+                        <button class="service-btn" data-category="admissions">Ask about Admissions</button>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-book"></i>
+                        </div>
+                        <h3 class="service-title">Academic Services</h3>
+                        <p class="service-description">Course registration, academic calendar, grading policies, and faculty information.</p>
+                        <button class="service-btn" data-category="courses">Ask about Courses</button>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h3 class="service-title">Housing & Accommodation</h3>
+                        <p class="service-description">On-campus housing options, application process, facilities, and costs.</p>
+                        <button class="service-btn" data-category="housing">Ask about Housing</button>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <h3 class="service-title">Financial Aid</h3>
+                        <p class="service-description">Scholarships, grants, loans, work-study programs, and payment plans.</p>
+                        <button class="service-btn" data-category="financial aid">Ask about Financial Aid</button>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <h3 class="service-title">Career Services</h3>
+                        <p class="service-description">Internship opportunities, job placement, resume building, and career counseling.</p>
+                        <button class="service-btn" data-category="career">Ask about Career Services</button>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3 class="service-title">Student Support</h3>
+                        <p class="service-description">Counseling services, health center, disability services, and student organizations.</p>
+                        <button class="service-btn" data-category="support">Ask about Student Support</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ Section -->
+            <section class="faq-section" id="faq">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-subtitle">Quick answers to common questions</p>
+                
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>How do I apply for admission?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Applications are submitted online through our portal. You'll need transcripts, test scores, personal statement, and letters of recommendation. The deadline for Fall is January 15.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>What is the tuition fee per semester?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Undergraduate tuition is $15,000 per semester. Graduate programs vary from $18,000-$22,000 per semester. Financial aid options are available for eligible students.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>When can I register for courses?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Course registration opens two months before each semester. Check your student portal for specific dates and consult with your academic advisor before registration.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <span>Is on-campus housing available?</span>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, we offer various housing options including dormitories and apartments. The housing application deadline is May 1st for priority consideration.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer" id="contact">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3 class="footer-title">University AI Bot</h3>
+                    <p class="footer-description">Your intelligent assistant for all university services and support.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Contact Info</h4>
+                    <ul class="contact-info">
+                        <li><i class="fas fa-map-marker-alt"></i> University Avenue, Campus City</li>
+                        <li><i class="fas fa-phone"></i> <a href="tel:+1234567890">(123) 456-7890</a></li>
+                        <li><i class="fas fa-envelope"></i> <a href="mailto:support@university.edu">support@university.edu</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4 class="footer-subtitle">Newsletter</h4>
+                    <p>Subscribe for updates and announcements</p>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 University AI Chatbot. All rights reserved.</p>
+            </div>
+        </footer>
+
+        <!-- Login Modal -->
+        <div class="modal-overlay" id="loginModal">
+            <div class="modal">
+                <div class="modal-header">
+                    <h3>Login to Your Account</h3>
+                    <button class="close-modal" id="closeModal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <!-- Login Form -->
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="username">Username or Email</label>
+                            <input type="text" id="username" placeholder="Enter username or email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" placeholder="Enter password" required>
+                        </div>
+                        <button type="submit" class="btn-primary">Login</button>
+                    </form>
+                    <div class="modal-footer">
+                        <p>Don't have an account? <a href="#" id="showRegisterLink">Register here</a></p>
+                    </div>
+
+                    <!-- Registration Form (hidden initially) -->
+                    <form id="registerForm" style="display: none;">
+                        <div class="form-group">
+                            <label for="regUsername">Username</label>
+                            <input type="text" id="regUsername" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="regEmail">Email</label>
+                            <input type="email" id="regEmail" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="regPassword">Password</label>
+                            <input type="password" id="regPassword" required>
+                        </div>
+                        <button type="submit" class="btn-primary">Register</button>
+                    </form>
+                    <div class="modal-footer">
+                        <p id="switchToLogin" style="display: none;">Already have an account? <a href="#" id="showLoginLink">Login here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
