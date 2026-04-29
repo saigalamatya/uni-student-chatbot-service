@@ -197,9 +197,11 @@ function toggleVoiceInput() {
         recognition.start();
         recognition.onresult = (event) => {
             userInput.value = event.results[0][0].transcript;
+            console.log('Voice input:', userInput.value);
             sendMessage();
         };
-        recognition.onerror = () => {
+        recognition.onerror = (error) => {
+            console.log("Error", error);
             addMessageToChat('Sorry, I couldn\'t understand your voice. Please try typing.', 'bot');
         };
     } else {
@@ -231,7 +233,7 @@ function initFAQ() {
 function setupEventListeners() {
     sendButton.addEventListener('click', sendMessage);
     userInput.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); });
-    // voiceBtn.addEventListener('click', toggleVoiceInput);
+    voiceBtn.addEventListener('click', toggleVoiceInput);
     clearChatBtn.addEventListener('click', clearChat);
     startChatBtn.addEventListener('click', () => {
         document.getElementById('chatSection').scrollIntoView({ behavior: 'smooth' });
