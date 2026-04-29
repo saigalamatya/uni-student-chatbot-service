@@ -9,6 +9,11 @@ const rateLimit = require('express-rate-limit');
 const path = require('path');
 require('dotenv').config();
 
+const OpenAI = require("openai");
+const client = new OpenAI({
+  apiKey: process.env['OPENAI_API_KEY'], // This is the default and can be omitted
+});
+
 // Initialize Express app
 const app = express();
 
@@ -77,7 +82,7 @@ async function initializeDatabase() {
             host: process.env.DB_HOST || 'localhost',
             port: parseInt(process.env.DB_PORT) || 3306,
             user: process.env.DB_USER || 'root',
-            password: process.env.DB_PASSWORD || 'password',
+            password: process.env.DB_PASSWORD || 'P@ssw0rd',
             database: process.env.DB_NAME || 'university_chatbot',
             waitForConnections: true,
             connectionLimit: 10,
@@ -86,7 +91,7 @@ async function initializeDatabase() {
             keepAliveInitialDelay: 0
         });
 
-        const connection = await pool.getConnection();
+        await pool.getConnection();
         console.log('[SUCCESS] Connected to MySQL database');
         console.log(`   Host: ${process.env.DB_HOST}:${process.env.DB_PORT}`);
         console.log(`   Database: ${process.env.DB_NAME}`);
@@ -161,7 +166,8 @@ function isUniversityRelated(query) {
         'major', 'minor', 'department', 'college', 'university', 'student',
         'staff', 'admin', 'cafeteria', 'meal plan', 'parking', 'transportation',
         'health', 'clinic', 'counseling', 'career', 'job', 'internship', 'placement',
-        'graduate', 'undergraduate', 'semester', 'quarter', 'credit', 'prerequisite'
+        'graduate', 'undergraduate', 'semester', 'quarter', 'credit', 'prerequisite',
+        'registration'
     ];
 
     const queryLower = query.toLowerCase();
@@ -264,7 +270,7 @@ ${context ? `Previous conversation context:\n${context}` : ''}
 Current question: ${query}`;
 
     // Check if OpenAI is configured
-    if (!process.env.OPENAI_API_KEY || process.env.OPENAI_API_KEY === 'your_openai_api_key_here') {
+    if (!process.env.OPENAI_API_KEY) {
         console.log('[WARNING] OpenAI API key not configured, using fallback responses');
         return getFallbackResponse(query);
     }
@@ -272,41 +278,20 @@ Current question: ${query}`;
     try {
         console.log('[INFO] Calling OpenAI API...');
         
-        const response = await axios.post(
-            process.env.OPENAI_API_URL || 'https://api.openai.com/v1/chat/completions',
-            {
-                model: "gpt-3.5-turbo",
-                messages: [
-                    {
-                        role: "system",
-                        content: systemPrompt
-                    },
-                    {
-                        role: "user",
-                        content: query
-                    }
-                ],
-                max_tokens: 500,
-                temperature: 0.7,
-                presence_penalty: 0.3,
-                frequency_penalty: 0.3
-            },
-            {
-                headers: {
-                    'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
-                    'Content-Type': 'application/json'
-                },
-                timeout: 15000
-            }
-        );
+        const response = await client.responses.create({
+            model: "gpt-5.4-mini",
+            input: `${systemPrompt}`,
+        });
 
-        if (response.data && response.data.choices && response.data.choices[0]) {
+        console.log(response.output_text);
+
+        if (response.output_text) {
             console.log('[SUCCESS] OpenAI response received');
-            return response.data.choices[0].message.content;
+            return response.output_text;
         } else {
             throw new Error('Invalid response from OpenAI');
         }
-        
+
     } catch (error) {
         console.error('[ERROR] OpenAI API error:', error.response?.data?.error?.message || error.message);
         
@@ -564,7 +549,7 @@ app.post('/api/auth/login', async (req, res) => {
 app.post('/api/chat', optionalAuth, async (req, res) => {
     try {
         const { message } = req.body;
-        const userId = req.user?.userId || req.body.userId || 'guest';
+        const userId = req.user?.userId || req.body.userId || 1;
         
         if (!message) {
             return res.status(400).json({ 

@@ -109,7 +109,8 @@ async function sendMessage() {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
                 message: message,
-                userId: 'guest'   // Always guest
+                // userId: 'guest'   // Always guest
+                userId: 1
             })
         });
         const data = await response.json();

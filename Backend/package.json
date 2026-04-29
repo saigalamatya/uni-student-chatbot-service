@@ -16,7 +16,8 @@
     "express-rate-limit": "^6.10.0",
     "helmet": "^7.0.0",
     "jsonwebtoken": "^9.0.2",
-    "mysql2": "^3.6.0"
+    "mysql2": "^3.6.0",
+    "openai": "^6.34.0"
   },
   "devDependencies": {
     "nodemon": "^3.0.1"
