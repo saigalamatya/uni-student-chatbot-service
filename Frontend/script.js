@@ -231,7 +231,7 @@ function initFAQ() {
 function setupEventListeners() {
     sendButton.addEventListener('click', sendMessage);
     userInput.addEventListener('keypress', e => { if (e.key === 'Enter') sendMessage(); });
-    voiceBtn.addEventListener('click', toggleVoiceInput);
+    // voiceBtn.addEventListener('click', toggleVoiceInput);
     clearChatBtn.addEventListener('click', clearChat);
     startChatBtn.addEventListener('click', () => {
         document.getElementById('chatSection').scrollIntoView({ behavior: 'smooth' });
