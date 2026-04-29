@@ -167,7 +167,7 @@ function isUniversityRelated(query) {
         'staff', 'admin', 'cafeteria', 'meal plan', 'parking', 'transportation',
         'health', 'clinic', 'counseling', 'career', 'job', 'internship', 'placement',
         'graduate', 'undergraduate', 'semester', 'quarter', 'credit', 'prerequisite',
-        'registration', 'taught', 'research', 'lab', 'office hours', 'advisor', 'orientation', 'alumni'
+        'registration', 'taught', 'research', 'lab', 'office hours', 'advisor', 'orientation', 'alumni', 'apply'
     ];
 
     const queryLower = query.toLowerCase();
