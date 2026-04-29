@@ -256,18 +256,18 @@ async function searchKnowledgeBase(query) {
 async function getAIResponse(query, context = '') {
     const systemPrompt = `You are a helpful university support assistant. Your role is to provide accurate, helpful information about university services including admissions, courses, housing, financial aid, and student support. 
 
-IMPORTANT GUIDELINES:
-1. Only answer questions related to university services and support
-2. If asked about non-university topics, politely redirect to university services
-3. Provide clear, structured information with bullet points when appropriate
-4. Be friendly and professional
-5. If you're unsure about specific details, suggest contacting the relevant department
-6. Keep responses concise but comprehensive (max 3-4 paragraphs)
-7. Use a warm, encouraging tone
+    IMPORTANT GUIDELINES:
+    1. Only answer questions related to university services and support
+    2. If asked about non-university topics, politely redirect to university services
+    3. Provide clear, structured information with bullet points when appropriate
+    4. Be friendly and professional
+    5. If you're unsure about specific details, suggest contacting the relevant department
+    6. Keep responses concise but comprehensive (max 3-4 paragraphs)
+    7. Use a warm, encouraging tone
 
-${context ? `Previous conversation context:\n${context}` : ''}
+    ${context ? `Previous conversation context:\n${context}` : ''}
 
-Current question: ${query}`;
+    Current question: ${query}`;
 
     // Check if OpenAI is configured
     if (!process.env.OPENAI_API_KEY) {
@@ -336,30 +336,30 @@ function getFallbackResponse(query) {
     const queryLower = query.toLowerCase();
     
     if (queryLower.includes('admission') || queryLower.includes('apply')) {
-        return 'For admission inquiries, please visit our admissions office or check the university website for detailed requirements and deadlines. The general requirements include: completed application form, official transcripts, letters of recommendation, personal statement, and standardized test scores. Contact admissions@university.edu for specific questions.';
+        return 'For admission inquiries at the University of the West of Scotland, please check the specific course requirements on the UWS website. Applications are typically submitted online. If you have questions about a course or ongoing application, you can email ask@uws.ac.uk or call 0800 027 1000.';
     }
     
     if (queryLower.includes('tuition') || queryLower.includes('fee') || queryLower.includes('cost')) {
-        return 'Tuition fees vary by program and student status. Undergraduate tuition ranges from $15,000-$20,000 per semester. Graduate programs range from $18,000-$25,000 per semester. Financial aid, scholarships, and payment plans are available. Please contact the bursar\'s office at (123) 456-7890 or email bursar@university.edu for specific fee information.';
+        return 'Tuition fees at UWS vary depending on your fee status and program level. For fee payment, billing, and refunds, contact Accounts Receivable at ar@uws.ac.uk or 0141 848 3271. Remember to quote your Banner ID in all correspondence.';
     }
     
     if (queryLower.includes('course') || queryLower.includes('class') || queryLower.includes('register')) {
-        return 'Course registration is done through the student portal during designated registration periods. Make sure to: 1) Check your registration appointment time, 2) Clear any holds on your account, 3) Consult with your academic advisor, 4) Have backup courses ready. Contact the Registrar\'s Office at (123) 456-7891 for assistance.';
+        return 'Course registration and enrolment at UWS are managed through the online self-service portal using your Banner ID. Make sure to check your UWS student email (bannerid@studentmail.uws.ac.uk) regularly. For assistance with your modules or enrolment, contact The Student Hub at hub.uws.ac.uk or WhatsApp 0141 848 3998.';
     }
     
     if (queryLower.includes('housing') || queryLower.includes('dorm') || queryLower.includes('accommodation')) {
-        return 'On-campus housing applications are accepted through the housing portal. We offer traditional dormitories, suite-style residences, and apartments. The priority deadline for Fall semester is May 1st. For more information, visit the housing office in Building C or email housing@university.edu.';
+        return 'UWS offers on-campus student residences at the Paisley and Ayr campuses. Applications are managed through the Residence Portal. For Lanarkshire, Dumfries, or London, students generally use private lets. For queries, email the Accommodation Office at accommodation@uws.ac.uk.';
     }
     
     if (queryLower.includes('financial aid') || queryLower.includes('scholarship') || queryLower.includes('fafsa')) {
-        return 'Financial aid applications are processed through FAFSA (school code: 123456) and the university financial aid office. The priority deadline for Fall semester is March 1st. Aid packages may include grants, scholarships, work-study, and loans. Contact finaid@university.edu or visit Building A, Room 102 for assistance.';
+        return 'For scholarships, hardship funds, and financial advice, UWS students can contact the Funding & Advice team by emailing fundingadvice@uws.ac.uk or visiting The Student Hub. Scottish students typically apply for core funding through SAAS.';
     }
     
     if (queryLower.includes('library')) {
-        return 'The library is open Monday-Friday 8 AM - 10 PM, Saturday 10 AM - 6 PM, and Sunday 12 PM - 8 PM. Extended hours during finals week. You can access online databases, research guides, and reserve study rooms through the library website. Contact the reference desk at (123) 456-7894 for research help.';
+        return 'UWS library services, such as the Robertson Trust Library, offer study spaces, PCs, and access to OneSearch for online databases. General campus hours are Monday-Friday 6 AM - 9 PM and weekends 9 AM - 5 PM. Student Hubs within the libraries are typically staffed Monday-Friday 9:00 AM - 4:30 PM.';
     }
     
-    return 'I understand you\'re asking about university services. For specific information, please contact the relevant department directly or visit our website at www.university.edu. You can also ask me about admissions, tuition, courses, housing, financial aid, library services, or student support.';
+    return 'I understand you\'re asking about UWS services. For specific information, please contact The Student Hub at hub.uws.ac.uk, email hub@uws.ac.uk, or WhatsApp 0141 848 3998. You can also ask me about UWS admissions, tuition, courses, accommodation, funding, or library services.';
 }
 
 // Save chat to database
