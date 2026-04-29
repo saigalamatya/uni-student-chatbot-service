@@ -91,7 +91,7 @@ async function initializeDatabase() {
             keepAliveInitialDelay: 0
         });
 
-        await pool.getConnection();
+        const connection = await pool.getConnection();
         console.log('[SUCCESS] Connected to MySQL database');
         console.log(`   Host: ${process.env.DB_HOST}:${process.env.DB_PORT}`);
         console.log(`   Database: ${process.env.DB_NAME}`);
@@ -167,7 +167,7 @@ function isUniversityRelated(query) {
         'staff', 'admin', 'cafeteria', 'meal plan', 'parking', 'transportation',
         'health', 'clinic', 'counseling', 'career', 'job', 'internship', 'placement',
         'graduate', 'undergraduate', 'semester', 'quarter', 'credit', 'prerequisite',
-        'registration'
+        'registration', 'taught', 'research', 'lab', 'office hours', 'advisor', 'orientation', 'alumni'
     ];
 
     const queryLower = query.toLowerCase();
@@ -549,7 +549,7 @@ app.post('/api/auth/login', async (req, res) => {
 app.post('/api/chat', optionalAuth, async (req, res) => {
     try {
         const { message } = req.body;
-        const userId = req.user?.userId || req.body.userId || 1;
+        const userId = req.user?.userId || req.body.userId || 'guest';
         
         if (!message) {
             return res.status(400).json({ 
@@ -583,6 +583,7 @@ app.post('/api/chat', optionalAuth, async (req, res) => {
         let source = 'ai';
         
         const kbAnswer = await searchKnowledgeBase(message);
+        // const kbAnswer = null;
         
         if (kbAnswer) {
             response = kbAnswer;
