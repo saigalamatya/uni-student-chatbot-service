@@ -160,7 +160,7 @@ const optionalAuth = (req, res, next) => {
 function isUniversityRelated(query) {
     const universityKeywords = [
         'admission', 'tuition', 'fee', 'course', 'class', 'register', 'enroll',
-        'library', 'housing', 'dorm', 'accommodation', 'financial aid', 'scholarship',
+        'library', 'housing', 'amenities', 'suite', 'dorm', 'accommodation', 'financial aid', 'scholarship',
         'deadline', 'application', 'requirement', 'campus', 'faculty', 'professor',
         'schedule', 'calendar', 'exam', 'test', 'grade', 'transcript', 'degree',
         'major', 'minor', 'department', 'college', 'university', 'student',
